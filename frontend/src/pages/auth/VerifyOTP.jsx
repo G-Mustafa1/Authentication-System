@@ -15,8 +15,6 @@ export default function OTPInput() {
   const inputsRef = useRef([]);
   const dispatch = useDispatch();
   const { loading, error, success } = useSelector((state) => state.auth);
-
-  // useEffect(() => {
   //   if (!email) return ; 
   //   if (error) toast.error(error);
   //   if (success) {
@@ -53,6 +51,24 @@ export default function OTPInput() {
     }
   };
 
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pasteData = e.clipboardData.getData("text").trim();
+
+    if (!/^\d{6}$/.test(pasteData)) return;
+
+    const newOtp = pasteData.split("");
+    setOTP(newOtp);
+
+    newOtp.forEach((digit, index) => {
+      if (inputsRef.current[index]) {
+        inputsRef.current[index].value = digit;
+      }
+    });
+
+    inputsRef.current[5]?.focus();
+  };
+
   const handleVerify = (e) => {
     e.preventDefault();
     const otpCode = otp.join("").trim();
@@ -85,6 +101,7 @@ export default function OTPInput() {
                   ref={(el) => (inputsRef.current[idx] = el)}
                   onChange={(e) => handleChange(e, idx)}
                   onKeyDown={(e) => handleBackspace(e, idx)}
+                  onPaste={handlePaste}
                   className="w-12 h-12 text-center border rounded-md focus:ring-2 focus:ring-blue-500"
                 />
               ))}

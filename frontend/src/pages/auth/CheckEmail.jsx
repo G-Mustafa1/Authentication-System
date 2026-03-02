@@ -26,12 +26,12 @@ export default function CheckEmail() {
           Please open your email and click on the verification link to activate your account.
         </p>
 
-        {/* <Button
+        <Button
           onClick={() => navigate("/")}
           className="w-full bg-blue-600 hover:bg-blue-700"
         >
-          Go to Login
-        </Button> */}
+          Go to Back
+        </Button>
       </div>
     </div>
   );

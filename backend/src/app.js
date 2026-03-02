@@ -7,6 +7,7 @@ import userRouter from "./routes/userRouter.js"
 import connectDB from "./config/db.js"
 import cookiesParser from "cookie-parser"
 import cors from "cors"
+import taskRouter from "./routes/taskRouter.js"
 
 
 app.use(express.json())
@@ -17,10 +18,11 @@ connectDB()
 app.use(cors({
   origin: [process.env.BASE_URL,],
   credentials: true,
-})
+})  
 );
 
-app.use('/user', userRouter)
+app.use('/user', userRouter);
+app.use('/task', taskRouter);
 
 app.get('/', (req, res) => {
   res.send('Backend is running 🚀')

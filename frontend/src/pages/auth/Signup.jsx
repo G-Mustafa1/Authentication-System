@@ -28,19 +28,6 @@ export default function Signup() {
         (state) => state.auth
     );
 
-    // useEffect(() => {
-    //     if (error) {
-    //         toast.error(error);
-    //     }
-
-    //     if (success) {
-    //         toast.success("Check your email for verification 📩");
-
-    //         navigate("/check-email", { state: { email } });
-
-    //     }
-    // }, [error, success]);
-
     useEffect(() => {
         if (error) {
             toast.error(error);

@@ -14,6 +14,8 @@ import HomeLayou from './layout/HomeLayou'
 import AuthLayout from './layout/AuthLayout'
 import { checkAuth } from './features/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import About from './pages/main/About'
+import Features from './pages/main/Fetures'
 
 function App() {
   const { user, loading, error } = useSelector((state) => state.auth);
@@ -28,17 +30,19 @@ function App() {
   return (
     <>
       <Routes>
-          <Route element={<AuthLayout />}>
-            <Route path="/" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/verify" element={<VerifyOTP />} />
-            <Route path="/forgot-password" element={<ResetPassword />} />
-            <Route path="/verify-email" element={<VerifyEmail />} />
-            <Route path="/check-email" element={<CheckEmail />} />
-          </Route>
+        <Route element={<AuthLayout />}>
+          <Route path="/" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/verify" element={<VerifyOTP />} />
+          <Route path="/forgot-password" element={<ResetPassword />} />
+          <Route path="/verify-email" element={<VerifyEmail />} />
+          <Route path="/check-email" element={<CheckEmail />} />
+        </Route>
         <Route element={<ProtectedRoute />}>
           <Route element={<HomeLayou />}>
             <Route path="/home" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/features" element={<Features />} />
             <Route path="/todos" element={<Todos />} />
           </Route>
         </Route>

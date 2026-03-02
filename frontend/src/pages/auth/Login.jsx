@@ -32,7 +32,7 @@ export default function Login() {
     }
 
     if (user) {
-      toast.success(success);
+      toast.success(success || "Login successful");
       navigate("/home");
     }
   }, [error, user]); 

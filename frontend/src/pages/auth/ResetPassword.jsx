@@ -21,17 +21,6 @@ export default function ResetPassword() {
   const dispatch = useDispatch();
   const { loading, error, success } = useSelector((state) => state.auth);
 
-  // useEffect(() => {
-  //   if (error) {
-  //     toast.error(error);
-  //   }
-
-  //   if (success) {
-  //     toast.success(success);
-  //     navigate("/");
-  //   }
-  // }, [error, success]);
-
   useEffect(() => {
     if (!email) {
       toast.error("Session expired");
@@ -101,11 +90,11 @@ export default function ResetPassword() {
           </form>
         </CardContent>
 
-        <CardFooter className="text-center text-sm text-gray-500">
+        {/* <CardFooter className="text-center text-sm text-gray-500">
           <Link to="/" className="text-blue-600 hover:underline">
             Back to Login
           </Link>
-        </CardFooter>
+        </CardFooter> */}
       </Card>
     </div>
   );
