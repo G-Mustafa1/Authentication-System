@@ -104,11 +104,11 @@ export default function Features() {
     <div className="bg-white">
 
       <section className="pt-28 pb-20 text-center relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-indigo-50 -z-10" />
+        <div className="absolute inset-0 bg-linear-to-br from-blue-50 via-white to-indigo-50 -z-10" />
 
         <h1 className="text-5xl font-extrabold text-gray-900 mb-6">
           Powerful Features for Better{" "}
-          <span className="bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent">
             Productivity
           </span>
         </h1>
@@ -119,7 +119,7 @@ export default function Features() {
 
         <button
           onClick={() => navigate("/todos")}
-          className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-500 text-white rounded-2xl font-bold shadow-lg hover:scale-105 transition"
+          className="px-8 py-4 bg-linear-to-r from-blue-600 to-indigo-500 text-white rounded-2xl font-bold shadow-lg hover:scale-105 transition"
         >
           Get Started <ArrowRight size={16} />
         </button>
@@ -183,7 +183,7 @@ export default function Features() {
         </div>
       </section>
 
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-indigo-600 text-center text-white">
+      <section className="py-20 bg-linear-to-r from-blue-600 to-indigo-600 text-center text-white">
         <h2 className="text-4xl font-bold mb-4">
           Start Managing Tasks Today
         </h2>

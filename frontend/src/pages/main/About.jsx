@@ -2,12 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight, CheckCircle2, Heart, Lightbulb, Rocket, Shield, Users, Target } from "lucide-react";
 
-const team = [
-  { name: "Ali Hassan", role: "CEO & Founder", avatar: "AH", color: "from-blue-500 to-indigo-500" },
-  { name: "Sara Ahmed", role: "CTO", avatar: "SA", color: "from-violet-500 to-purple-500" },
-  { name: "Umar Farooq", role: "Head of Design", avatar: "UF", color: "from-sky-500 to-blue-500" },
-  { name: "Nida Malik", role: "Head of Marketing", avatar: "NM", color: "from-indigo-500 to-blue-600" },
-];
 
 const values = [
   {
@@ -48,7 +42,7 @@ const About = () => {
   return (
     <div className="min-h-screen bg-white">
       <section className="relative pt-24 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-indigo-50 -z-10" />
+        <div className="absolute inset-0 bg-linear-to-br from-blue-50 via-white to-indigo-50 -z-10" />
 
         <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
           <span className="inline-block text-blue-600 font-bold text-sm uppercase tracking-widest mb-4 bg-blue-50 px-4 py-2 rounded-full border border-blue-100">
@@ -57,7 +51,7 @@ const About = () => {
 
           <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6">
             Our Mission:{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent">
               Simplifying Productivity
             </span>
           </h1>
@@ -85,7 +79,7 @@ const About = () => {
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
           
-          <div className="bg-gradient-to-br from-blue-600 to-indigo-600 rounded-3xl p-8 text-white">
+          <div className="bg-linear-to-br from-blue-600 to-indigo-600 rounded-3xl p-8 text-white">
             <p className="text-blue-200 text-sm mb-3">Our Story</p>
             <blockquote className="text-2xl font-bold mb-6">
               "We were a small team looking for a better todo app. When we couldn't find one, we built our own."

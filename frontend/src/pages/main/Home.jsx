@@ -80,7 +80,7 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-white font-sans">
       <section className="relative min-h-screen flex items-center pt-16 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-indigo-50 -z-10" />
+        <div className="absolute inset-0 bg-linear-to-br from-blue-50 via-white to-indigo-50 -z-10" />
 
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20 grid lg:grid-cols-2 gap-12 items-center">
           <div>
@@ -90,7 +90,7 @@ const Home = () => {
 
             <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6">
               Manage Your Tasks the{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent">
                 Smart Way
               </span>
             </h1>
@@ -134,7 +134,7 @@ const Home = () => {
               className={`flex items-center gap-3 p-3 rounded-xl mb-2 transition-colors ${task.done ? "bg-gray-50" : "bg-white border border-gray-100"
                 }`}
             >
-              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${task.done ? "bg-blue-500 border-blue-500" : "border-gray-300"
+              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${task.done ? "bg-blue-500 border-blue-500" : "border-gray-300"
                 }`}>
                 {task.done && <CheckCircle2 size={12} className="text-white" />}
               </div>
@@ -150,7 +150,7 @@ const Home = () => {
               <span>Progress</span><span className="font-bold text-blue-600">40%</span>
             </div>
             <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-              <div className="h-full w-2/5 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full" />
+              <div className="h-full w-2/5 bg-linear-to-r from-blue-500 to-indigo-500 rounded-full" />
             </div>
           </div>
         </div>

@@ -69,10 +69,10 @@ const Navbar = () => {
               className="flex items-center gap-2 cursor-pointer group"
               onClick={() => navigate("/")}
             >
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-500 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+              <div className="w-8 h-8 rounded-lg bg-linear-to-br from-blue-600 to-indigo-500 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
                 <CheckSquare size={16} className="text-white" />
               </div>
-              <span className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent">
+              <span className="text-xl font-extrabold tracking-tight bg-linear-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent">
                 TaskFlow
               </span>
             </div>
@@ -100,7 +100,7 @@ const Navbar = () => {
             <div className="hidden md:flex items-center gap-3">
               <Button
                 onClick={() => navigate("/todos")}
-                className="bg-gradient-to-r from-blue-600 to-indigo-500 text-white hover:opacity-90 px-5 rounded-xl shadow-md hover:shadow-lg transition-all"
+                className="bg-linear-to-r from-blue-600 to-indigo-500 text-white hover:opacity-90 px-5 rounded-xl shadow-md hover:shadow-lg transition-all"
               >
                 My Tasks
               </Button>
@@ -109,7 +109,7 @@ const Navbar = () => {
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="icon" className="rounded-full hover:bg-blue-50">
                     <Avatar className="w-9 h-9">
-                      <AvatarFallback className="bg-gradient-to-br from-blue-600 to-indigo-500 text-white font-bold text-sm">
+                      <AvatarFallback className="bg-linear-to-br from-blue-600 to-indigo-500 text-white font-bold text-sm">
                         {getInitial()}
                       </AvatarFallback>
                     </Avatar>
@@ -133,7 +133,7 @@ const Navbar = () => {
             {/* Mobile Toggle */}
             <div className="md:hidden flex items-center gap-2">
               <Avatar className="w-8 h-8">
-                <AvatarFallback className="bg-gradient-to-br from-blue-600 to-indigo-500 text-white font-bold text-xs">
+                <AvatarFallback className="bg-linear-to-br from-blue-600 to-indigo-500 text-white font-bold text-xs">
                   {getInitial()}
                 </AvatarFallback>
               </Avatar>
@@ -159,17 +159,17 @@ const Navbar = () => {
       {/* Mobile Drawer */}
       <aside
         style={{ backgroundColor: "white" }}
-        className={`fixed top-0 right-0 h-full w-[280px] max-w-[85vw] z-50 md:hidden
+        className={`fixed top-0 right-0 h-full w-70 max-w-[85vw] z-50 md:hidden
           flex flex-col shadow-2xl transform transition-transform duration-300 ease-in-out
           ${isOpen ? "translate-x-0" : "translate-x-full"}`}
       >
         {/* Drawer Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-500 flex items-center justify-center">
+            <div className="w-7 h-7 rounded-lg bg-linear-to-br from-blue-600 to-indigo-500 flex items-center justify-center">
               <CheckSquare size={13} className="text-white" />
             </div>
-            <span className="text-lg font-extrabold bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent">
+            <span className="text-lg font-extrabold bg-linear-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent">
               TaskFlow
             </span>
           </div>
@@ -180,7 +180,7 @@ const Navbar = () => {
 
         {/* User Card */}
         <div className="mx-4 mt-4 mb-3 rounded-2xl  p-4 flex items-center gap-3">
-          <div className="w-11 h-11 rounded-full bg-blue-600/25 border-2 border-white/50 flex items-center justify-center text-blue-600 font-extrabold text-lg select-none flex-shrink-0">
+          <div className="w-11 h-11 rounded-full bg-blue-600/25 border-2 border-white/50 flex items-center justify-center text-blue-600 font-extrabold text-lg select-none shrink-0">
             {getInitial()}
           </div>
           <div className="min-w-0">
@@ -213,7 +213,7 @@ const Navbar = () => {
 
           <button
             onClick={() => { navigate("/todos"); setIsOpen(false); }}
-            className="mt-3 w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-500 text-white text-sm font-bold shadow-md hover:opacity-90 transition-all active:scale-95"
+            className="mt-3 w-full py-3 rounded-xl bg-linear-to-r from-blue-600 to-indigo-500 text-white text-sm font-bold shadow-md hover:opacity-90 transition-all active:scale-95"
           >
             ✓ My Tasks
           </button>

@@ -7,30 +7,30 @@ const Footer = () => {
 
   const links = {
     Product: [
-      { label: "Home",     path: "/home"     },
-      { label: "About",    path: "/about"    },
+      { label: "Home", path: "/home" },
+      { label: "About", path: "/about" },
       { label: "Features", path: "/features" },
-      { label: "My Tasks", path: "/todos"    },
+      { label: "My Tasks", path: "/todos" },
     ],
     Company: [
-      { label: "About Us",    path: "/about"   },
-      { label: "Blog",        path: "#"        },
-      { label: "Careers",     path: "#"        },
-      { label: "Contact",     path: "#"        },
+      { label: "About Us", path: "/about" },
+      { label: "Blog", path: "#" },
+      { label: "Careers", path: "#" },
+      { label: "Contact", path: "#" },
     ],
     Support: [
-      { label: "Help Center",    path: "#" },
+      { label: "Help Center", path: "#" },
       { label: "Privacy Policy", path: "#" },
-      { label: "Terms of Use",   path: "#" },
-      { label: "Status",         path: "#" },
+      { label: "Terms of Use", path: "#" },
+      { label: "Status", path: "#" },
     ],
   };
 
   const socials = [
-    { icon: Github,   href: "#", label: "GitHub"   },
-    { icon: Twitter,  href: "#", label: "Twitter"  },
+    { icon: Github, href: "#", label: "GitHub" },
+    { icon: Twitter, href: "#", label: "Twitter" },
     { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: Mail,     href: "#", label: "Email"    },
+    { icon: Mail, href: "#", label: "Email" },
   ];
 
   return (
@@ -48,13 +48,15 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2 mb-4 cursor-pointer" onClick={() => navigate("/")}>
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/30">
+              <div className="w-9 h-9 rounded-xl bg-linear-to-br from-blue-500 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/30">
                 <CheckSquare size={18} className="text-white" />
               </div>
               <span className="text-xl font-extrabold text-white tracking-tight">TaskFlow</span>
             </div>
+
             <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
-              Apne kaam ko organize karo, deadlines track karo, aur apni productivity ko naya muqam do. TaskFlow ke saath har kaam asaan ho jaata hai.
+              Organize your work, track deadlines, and take your productivity to the next level.
+              With TaskFlow, managing tasks becomes simple and efficient.
             </p>
 
             {/* Socials */}
@@ -95,16 +97,19 @@ const Footer = () => {
         {/* Newsletter */}
         <div className="bg-gray-900 rounded-2xl p-6 mb-10 flex flex-col sm:flex-row items-center gap-4">
           <div className="flex-1">
-            <h4 className="text-white font-bold text-base">Newsletter Subscribe Karo</h4>
-            <p className="text-gray-400 text-sm mt-1">Latest updates aur productivity tips seedha inbox mein.</p>
+            <h4 className="text-white font-bold text-base">Subscribe to Our Newsletter</h4>
+            <p className="text-gray-400 text-sm mt-1">
+              Get the latest updates and productivity tips directly in your inbox.
+            </p>
           </div>
+
           <div className="flex w-full sm:w-auto gap-2">
             <input
               type="email"
               placeholder="Email address"
               className="flex-1 sm:w-56 px-4 py-2.5 rounded-xl bg-gray-800 border border-gray-700 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-blue-500 transition-colors"
             />
-            <button className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-500 text-white text-sm font-semibold hover:opacity-90 transition whitespace-nowrap shadow-md">
+            <button className="px-5 py-2.5 rounded-xl bg-linear-to-r from-blue-600 to-indigo-500 text-white text-sm font-semibold hover:opacity-90 transition whitespace-nowrap shadow-md">
               Subscribe
             </button>
           </div>
@@ -115,12 +120,14 @@ const Footer = () => {
           <p className="text-gray-500 text-sm flex items-center gap-1.5">
             © {new Date().getFullYear()} TaskFlow. Made with <Heart size={13} className="text-red-500 fill-red-500" /> by Ghulam Mustafa
           </p>
+
           <div className="flex items-center gap-4 text-xs text-gray-500">
             <a href="#" className="hover:text-blue-400 transition-colors">Privacy</a>
             <a href="#" className="hover:text-blue-400 transition-colors">Terms</a>
             <a href="#" className="hover:text-blue-400 transition-colors">Cookies</a>
           </div>
         </div>
+
       </div>
     </footer>
   );

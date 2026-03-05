@@ -7,7 +7,6 @@ import { fetchTasks, createTask, updateTask, deleteTask } from "@/features/taskS
 const Todos = () => {
   const dispatch = useDispatch();
 
-  // ✅ SAFE SELECTOR (error fix)
   const taskState = useSelector((state) => state.task) || {};
   const tasks = taskState.tasks || [];
   const loading = taskState.loading || false;
@@ -62,11 +61,6 @@ const Todos = () => {
     toast.success("Task deleted");
   };
 
-  // TOGGLE
-  const toggleStatus = (task) => {
-    const newStatus = task.status === "completed" ? "pending" : "completed";
-    dispatch(updateTask({ id: task._id, updates: { status: newStatus } }));
-  };
 
   return (
     <div className="min-h-screen bg-gray-50 pt-16 px-4">
@@ -76,7 +70,7 @@ const Todos = () => {
 
         {/* HEADER */}
         <div className="flex justify-between mb-6">
-          <h1 className="text-2xl font-bold">Meri Tasks</h1>
+          <h1 className="text-2xl font-bold">My Tasks</h1>
 
           <button
             onClick={openAddModal}
@@ -96,12 +90,6 @@ const Todos = () => {
             tasks.map((task) => (
               <div key={task._id} className="bg-white p-4 rounded-xl flex gap-3 shadow">
 
-                {/* STATUS */}
-                <button onClick={() => toggleStatus(task)}>
-                  {/* {task.status === "completed"
-                    ? <CheckCircle2 className="text-blue-500" />
-                    : <Circle className="text-gray-300" />} */}
-                </button>
 
                 {/* CONTENT */}
                 <div className="flex-1">

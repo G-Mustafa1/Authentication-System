@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Lock, Eye, EyeOff } from "lucide-react";
 import { Input } from "./ui/input";
-// import { Input } from "./Input"; 
 
 export function PasswordInput({ placeholder, value, onChange }) {
  
