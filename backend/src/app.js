@@ -14,6 +14,8 @@ app.use(express.json())
 app.use(cookiesParser())
 
 connectDB()
+console.log(process.env.BASE_URL);
+
 
 app.use(cors({
   origin: [process.env.BASE_URL,],

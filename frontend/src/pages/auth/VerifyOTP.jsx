@@ -1,46 +1,34 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
-import { clearState, verifyOTP } from "@/features/authSlice";
+import { verifyOTP } from "@/features/authSlice";
+import { CheckSquare, ShieldCheck, ArrowRight, RotateCcw } from "lucide-react";
 
 export default function OTPInput() {
   const location = useLocation();
   const email = location.state?.email;
 
   const [otp, setOTP] = useState(new Array(6).fill(""));
-  const navigate = useNavigate();
   const inputsRef = useRef([]);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, error, success } = useSelector((state) => state.auth);
-  //   if (!email) return ; 
-  //   if (error) toast.error(error);
-  //   if (success) {
-  //     toast.success(success);
-  //     navigate("/forgot-password", { state: { email } }); 
-  //   }
-  // }, [error, success]);
+
+  const { loading } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (!email) return;
-
-    if (error) toast.error(error);
-
-    if (success) {
-      toast.success(success);
-      navigate("/forgot-password", { state: { email } });
-      dispatch(clearState());
+    if (!email) {
+      navigate("/verify-email", { replace: true });
     }
-  }, [error, success, email, dispatch]);
+  }, [email, navigate]);
+
   const handleChange = (e, index) => {
     const val = e.target.value;
     if (/^[0-9]?$/.test(val)) {
       const newOtp = [...otp];
       newOtp[index] = val;
       setOTP(newOtp);
-
       if (val && index < 5) inputsRef.current[index + 1].focus();
     }
   };
@@ -54,82 +42,118 @@ export default function OTPInput() {
   const handlePaste = (e) => {
     e.preventDefault();
     const pasteData = e.clipboardData.getData("text").trim();
-
     if (!/^\d{6}$/.test(pasteData)) return;
-
     const newOtp = pasteData.split("");
     setOTP(newOtp);
-
-    newOtp.forEach((digit, index) => {
-      if (inputsRef.current[index]) {
-        inputsRef.current[index].value = digit;
-      }
-    });
-
     inputsRef.current[5]?.focus();
   };
 
-  const handleVerify = (e) => {
+  const handleVerify = async (e) => {
     e.preventDefault();
     const otpCode = otp.join("").trim();
+    if (otpCode.length !== 6) return toast.error("Enter complete 6-digit OTP");
 
-    if (otpCode.length !== 6) {
-      return toast.error("Enter complete 6-digit OTP");
+    try {
+      await dispatch(verifyOTP({ email, otp: otpCode })).unwrap();
+      toast.success("OTP verified");
+      navigate("/forgot-password", { state: { email } });
+    } catch (err) {
+      toast.error(err?.message || err || "Invalid OTP");
     }
-
-    dispatch(verifyOTP({ email, otp: otpCode }));
   };
 
+  const isComplete = otp.every((d) => d !== "");
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-      <Card className="w-full max-w-md shadow-lg rounded-xl">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">Verify OTP</CardTitle>
-          <CardDescription>Enter the 6-digit OTP</CardDescription>
-        </CardHeader>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-12">
+      <div className="w-full max-w-md">
 
-        <CardContent>
-          <form onSubmit={handleVerify} className="flex flex-col gap-5 items-center">
+        {/* Logo */}
+        <div className="flex items-center gap-2.5 mb-8 justify-center">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-500 flex items-center justify-center shadow-md shadow-blue-200">
+            <CheckSquare size={19} className="text-white" />
+          </div>
+          <span className="text-xl font-extrabold text-slate-900">TaskFlow</span>
+        </div>
 
-            <div className="flex gap-2">
+        {/* Card */}
+        <div className="bg-white rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100 p-8 sm:p-10">
+
+          {/* Icon */}
+          <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center mb-6">
+            <ShieldCheck size={24} className="text-blue-600" />
+          </div>
+
+          {/* Heading */}
+          <div className="mb-8">
+            <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight mb-1.5">
+              Verify your email
+            </h2>
+            <p className="text-slate-500 text-sm leading-relaxed">
+              We sent a 6-digit OTP to{" "}
+              <span className="font-semibold text-slate-700">{email || "your email"}</span>.
+              Enter it below to continue.
+            </p>
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleVerify} className="space-y-6">
+
+            {/* OTP Boxes */}
+            <div className="flex justify-between gap-2 sm:gap-3">
               {otp.map((digit, idx) => (
                 <input
                   key={idx}
                   type="text"
+                  inputMode="numeric"
                   maxLength="1"
                   value={digit}
                   ref={(el) => (inputsRef.current[idx] = el)}
                   onChange={(e) => handleChange(e, idx)}
                   onKeyDown={(e) => handleBackspace(e, idx)}
                   onPaste={handlePaste}
-                  className="w-12 h-12 text-center border rounded-md focus:ring-2 focus:ring-blue-500"
+                  className={`w-full aspect-square max-w-[52px] text-center text-xl font-bold rounded-xl border-2 transition-all duration-200 outline-none
+                    bg-slate-50 text-slate-900 caret-blue-500
+                    ${digit
+                      ? "border-blue-500 bg-blue-50 text-blue-600"
+                      : "border-slate-200 focus:border-blue-400 focus:bg-white"
+                    }`}
                 />
               ))}
             </div>
 
+            {/* Submit */}
             <Button
               type="submit"
-              disabled={loading}
-              className="w-full h-10 mt-4 bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center gap-2"
+              disabled={loading || !isComplete}
+              className="w-full h-12 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-sm shadow-lg shadow-blue-500/25 transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading && (
-                <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+              {loading ? (
+                <>
+                  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  Verifying...
+                </>
+              ) : (
+                <>
+                  Verify OTP <ArrowRight size={16} />
+                </>
               )}
-              {loading ? "Verifying..." : "Verify OTP"}
             </Button>
-
           </form>
-        </CardContent>
 
-        <CardFooter className="flex justify-between text-sm text-gray-500">
-          <span>Didn't receive OTP?</span>
-          <Link to="/verify-email">
-            <Button variant="link" className="text-blue-600 p-0">
-              Resend
-            </Button>
-          </Link>
-        </CardFooter>
-      </Card>
+          {/* Resend */}
+          <div className="flex items-center justify-center gap-2 mt-6 text-sm text-slate-500">
+            <span>Didn't receive it?</span>
+            <button
+              type="button"
+              onClick={() => navigate("/forgot-password")}
+              className="flex items-center gap-1.5 text-blue-600 font-semibold hover:text-blue-700 hover:underline transition-colors"
+            >
+              <RotateCcw size={13} /> Resend OTP
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

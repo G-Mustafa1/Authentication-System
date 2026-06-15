@@ -1,26 +1,17 @@
 import mongoose from "mongoose";
+import dns from "dns";
 
-let cached = global.mongoose;
-
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
-}
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
 const connectDB = async () => {
-  if (cached.conn) {
-    console.log("✅ Using cached DB connection");
-    return cached.conn;
-  }
+  try {
+    await mongoose.connect(process.env.MONGO_URL);
 
-  if (!cached.promise) {
-    cached.promise = mongoose.connect(process.env.MONGO_URL).then((mongoose) => {
-      console.log("✅ MongoDB Connected");
-      return mongoose;
-    });
+    console.log("✅ MongoDB Connected");
+  } catch (error) {
+    console.error("❌ MongoDB Connection Error:", error.message);
+    process.exit(1);
   }
-
-  cached.conn = await cached.promise;
-  return cached.conn;
 };
 
 export default connectDB;

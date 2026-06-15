@@ -16,16 +16,19 @@ import { checkAuth } from './features/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import About from './pages/main/About'
 import Features from './pages/main/Fetures'
+import Loader from './components/Loader'
 
 function App() {
-  const { user, loading, error } = useSelector((state) => state.auth);
+  const { authLoading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(checkAuth());
   }, []);
 
-  // if (loading) return <p>Loading...</p>;
+  if (authLoading) {
+    return <Loader />;
+  }
 
   return (
     <>

@@ -7,7 +7,7 @@ const taskRouter = express.Router();
 
 taskRouter.post("/add-task", protect, createTask );
 taskRouter.get("/get-task", protect, getTask );
-taskRouter.patch("/edit-task/:id", protect, updateTask );
+taskRouter.put("/edit-task/:id", protect, updateTask );
 taskRouter.delete("/delete-task/:id", protect, deleteTask );
 
 

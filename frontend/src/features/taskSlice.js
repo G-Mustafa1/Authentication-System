@@ -1,63 +1,85 @@
 import { api } from "@/api/api";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const API_URL = "/task"; // your backend task routes
+const API_URL = "/task";
 
-// 1️⃣ Fetch tasks
+/* ───────── FETCH ───────── */
 export const fetchTasks = createAsyncThunk(
-  "tasks/fetchTasks",
+  "tasks/fetch",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await api.get(`${API_URL}/get-task`, { withCredentials: true });
-    //   console.log(data);
+      const { data } = await api.get(`${API_URL}/get-task`, {
+        withCredentials: true,
+      });
+
       return data.tasks;
-      
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(
+        error.response?.data?.message || error.message
+      );
     }
   }
 );
 
-// 2️⃣ Create task
+/* ───────── CREATE ───────── */
 export const createTask = createAsyncThunk(
-  "tasks/createTask",
+  "tasks/create",
   async (taskData, { rejectWithValue }) => {
     try {
-      const { data } = await api.post(`${API_URL}/add-task`, taskData, { withCredentials: true });
+      const { data } = await api.post(
+        `${API_URL}/add-task`,
+        taskData,
+        { withCredentials: true }
+      );
+
       return data.task;
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(
+        error.response?.data?.message || error.message
+      );
     }
   }
 );
 
-// 3️⃣ Update task
+/* ───────── UPDATE ───────── */
 export const updateTask = createAsyncThunk(
-  "tasks/updateTask",
+  "tasks/update",
   async ({ id, updates }, { rejectWithValue }) => {
     try {
-      const { data } = await api.patch(`${API_URL}/edit-task/${id}`, updates, { withCredentials: true });
+      const { data } = await api.put(
+        `${API_URL}/edit-task/${id}`,
+        updates,
+        { withCredentials: true }
+      );
+
       return data.task;
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(
+        error.response?.data?.message || error.message
+      );
     }
   }
 );
 
-// 4️⃣ Delete task
+/* ───────── DELETE ───────── */
 export const deleteTask = createAsyncThunk(
-  "tasks/deleteTask",
+  "tasks/delete",
   async (id, { rejectWithValue }) => {
     try {
-      await api.delete(`${API_URL}/delete-task/${id}`, { withCredentials: true });
-      return id; // return deleted id to remove from state
+      await api.delete(`${API_URL}/delete-task/${id}`, {
+        withCredentials: true,
+      });
+
+      return id;
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(
+        error.response?.data?.message || error.message
+      );
     }
   }
 );
 
-// Slice
+/* ───────── SLICE ───────── */
 const taskSlice = createSlice({
   name: "tasks",
   initialState: {
@@ -68,31 +90,61 @@ const taskSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // Fetch tasks
-      .addCase(fetchTasks.pending, (state) => { state.loading = true; })
-      .addCase(fetchTasks.fulfilled, (state, action) => { state.loading = false; state.tasks = action.payload; })
-      .addCase(fetchTasks.rejected, (state, action) => { state.loading = false; state.error = action.payload; })
+      /* FETCH */
+      .addCase(fetchTasks.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchTasks.fulfilled, (state, action) => {
+        state.loading = false;
+        state.tasks = action.payload;
+      })
+      .addCase(fetchTasks.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
 
-      // Create task
-      .addCase(createTask.pending, (state) => { state.loading = true; })
-      .addCase(createTask.fulfilled, (state, action) => { state.loading = false; state.tasks.unshift(action.payload); })
-      .addCase(createTask.rejected, (state, action) => { state.loading = false; state.error = action.payload; })
+      /* CREATE */
+      .addCase(createTask.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(createTask.fulfilled, (state, action) => {
+        state.loading = false;
+        state.tasks.unshift(action.payload);
+      })
+      .addCase(createTask.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
 
-      // Update task
-      .addCase(updateTask.pending, (state) => { state.loading = true; })
+      /* UPDATE (FIXED) */
+      .addCase(updateTask.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(updateTask.fulfilled, (state, action) => {
         state.loading = false;
-        state.tasks = state.tasks.map((t) => t._id === action.payload._id ? action.payload : t);
+        state.tasks = state.tasks.map((t) =>
+          t._id === action.payload._id ? action.payload : t
+        );
       })
-      .addCase(updateTask.rejected, (state, action) => { state.loading = false; state.error = action.payload; })
+      .addCase(updateTask.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
 
-      // Delete task
-      .addCase(deleteTask.pending, (state) => { state.loading = true; })
+      /* DELETE */
+      .addCase(deleteTask.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(deleteTask.fulfilled, (state, action) => {
         state.loading = false;
-        state.tasks = state.tasks.filter((t) => t._id !== action.payload);
+        state.tasks = state.tasks.filter(
+          (t) => t._id !== action.payload
+        );
       })
-      .addCase(deleteTask.rejected, (state, action) => { state.loading = false; state.error = action.payload; });
+      .addCase(deleteTask.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 
