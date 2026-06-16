@@ -79,7 +79,7 @@ export const verification = async (req, res) => {
     user.token = null;
     await user.save();
 
-    res.redirect(`${process.env.BASE_URL}/`);
+    res.redirect(`${process.env.BASE_URL}`);
 
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
