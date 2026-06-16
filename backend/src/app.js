@@ -13,7 +13,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: [process.env.BASE_URL],
+    origin: ["https://authentication-system-khaki.vercel.app", "http://localhost:5173"],
     credentials: true,
   })
 );
